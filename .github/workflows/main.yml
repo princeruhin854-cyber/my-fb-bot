@@ -3,26 +3,27 @@ name: FB-Bot-Runner
 on:
   push:
     branches: [ main ]
-  workflow_dispatch: # যাতে আপনি নিজে 'Run workflow' বাটন টিপে স্টার্ট দিতে পারেন
+  workflow_dispatch: # এটি খুবই জরুরি, যাতে আপনি বাটন টিপে বট স্টার্ট দিতে পারেন
 
 jobs:
-  run-bot:
+  build:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
 
-    - name: Setup Node.js
+    - name: Use Node.js 20
       uses: actions/setup-node@v3
       with:
-        node-version: '20' # লেটেস্ট ভার্সন যাতে ওয়ার্নিং না আসে
+        node-version: '20'
 
-    - name: Install Dependencies
-      run: |
-        npm install fca-project-orion fs-extra express
+    - name: Install dependencies
+      # --no-package-lock দিলে ইনস্টল দ্রুত হবে
+      run: npm install --no-package-lock
 
-    - name: Run Bot
-      run: node index.js
+    - name: Start Bot
       env:
-        CI: true
+        PORT: 8080
+      # সরাসরি index.js রান করছি যাতে ভুল না হয়
+      run: node index.js

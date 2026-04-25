@@ -1,17 +1,12 @@
 {
-  "name": "cyber-bot",
+  "name": "fb-chatbot",
   "version": "1.0.0",
-  "description": "FB Bot by Oustad Ruhin",
+  "description": "Facebook Chatbot using appstate",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
-    "fca-project-orion": "latest",
-    "fs-extra": "latest",
-    "express": "latest"
-  },
-  "engines": {
-    "node": ">=20"
+    "fca-unofficial": "^1.3.13"
   }
 }

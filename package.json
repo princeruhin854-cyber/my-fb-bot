@@ -1,11 +1,13 @@
-
 {
   "name": "cyber-bot",
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "fca-project-orion": "latest",
-    "fs-extra": "latest",
-    "express": "latest"
+    "fca-project-orion": "^1.1.2",
+    "fs-extra": "^11.1.0",
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

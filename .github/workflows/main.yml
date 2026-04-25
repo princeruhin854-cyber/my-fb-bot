@@ -1,26 +1,27 @@
-name: Node.js CI
+name: Facebook Chatbot Runner
 
 on:
-  push:
-    branches: [main]
-  workflow_dispatch:
+  workflow_dispatch: # এই লাইনের ফলে তুমি GitHub থেকে ম্যানুয়ালি বট চালু করতে পারবে
+  schedule:
+    - cron: '0 */5 * * *' # প্রতি ৫ ঘণ্টা পর পর বট রিস্টার্ট নিবে (কারণ GitHub Action ৬ ঘণ্টার বেশি একটানা চলে না)
 
 jobs:
-  build:
+  run-bot:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      # ১. তোমার রিপোজিটরি থেকে কোড আনবে
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-    - name: Use Node.js 20
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
+      # ২. Node.js সেটআপ করবে (ভার্সন ১৮)
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
 
-    - name: Install dependencies
-      run: npm install
+      # ৩. package.json থেকে প্রয়োজনীয় লাইব্রেরি ইনস্টল করবে
+      - name: Install Dependencies
+        run: npm install
 
-    - name: Start the bot
-      env:
-        PORT: 8080
-      run: npm start
+      # ৪. বট

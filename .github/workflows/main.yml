@@ -1,17 +1,16 @@
-name: FB-Bot-Runner
+name: Node.js CI
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch: # এটি খুবই জরুরি, যাতে আপনি বাটন টিপে বট স্টার্ট দিতে পারেন
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
     - name: Use Node.js 20
       uses: actions/setup-node@v3
@@ -19,11 +18,9 @@ jobs:
         node-version: '20'
 
     - name: Install dependencies
-      # --no-package-lock দিলে ইনস্টল দ্রুত হবে
-      run: npm install --no-package-lock
+      run: npm install
 
-    - name: Start Bot
+    - name: Start the bot
       env:
         PORT: 8080
-      # সরাসরি index.js রান করছি যাতে ভুল না হয়
-      run: node index.js
+      run: npm start
